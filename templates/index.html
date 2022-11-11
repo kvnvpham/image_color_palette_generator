@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Image Color Palette{% endblock %}
+
+{% block content %}
+
+    <section id="title">
+        <div class="container-fluid">
+            <div class="main">
+                <h1>Color Palette Generator</h1>
+                <form action="{{ url_for('home') }}" method="post" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+                    {{ form.image.label(class_='form-label') }}
+                        {% for error in form.image.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    {{ form.image(class_='form-control') }}
+                    {{ form.submit(class_='btn btn-light upload-btn') }}
+                </form>
+            </div>
+        </div>
+    </section>
+
+    {% if image %}
+    <section id="upload-section">
+        <div class="container-fluid">
+            <div class="upload-div">
+                <h2>Image Colors</h2>
+                <div>
+                    <img class="img-fluid rounded mx-auto select-image" src="{{ image }}">
+                </div>
+                <div class="table-responsive table-div">
+                    <table class="table stripe-color hover-color">
+                        <thead class="text-center">
+                            <th>#</th>
+                            <th>Color</th>
+                            <th>Percentages</th>
+                        </thead>
+                        <tbody class="table-group-divider text-center">
+                            {% for i in range(10) %}
+                            <tr>
+                                <th>{{ i + 1 }}</th>
+                                <td>{{ colors[i] }}</td>
+                                <td>{{ percent[i] }}%</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <section id="footer">
+        <div class="container-fluid">
+            <div class="footer-div">
+                <a class="icon" href="https://github.com/kvnvpham"><i class="lni lni-github-original"></i></a>
+                <a class="icon" href="https://www.linkedin.com/in/kvvpham"><i class="lni lni-linkedin-original"></i></a>
+                <a class="icon" href="mailto:kvnvpham@gmail.com"><i class="lni lni-envelope"></i></a>
+                <p class="text-muted copyright">Copyright © Kevin Pham {{ year }}</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
