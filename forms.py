@@ -6,7 +6,7 @@ from wtforms import SubmitField
 class UploadForm(FlaskForm):
     image = FileField(
         label="Upload Image",
-        validators=[FileRequired(), FileAllowed(['jpg'], "JPG images only!")]
+        validators=[FileRequired(), FileAllowed(['jpg', 'png'], "Images only!")]
     )
     submit = SubmitField("Upload")
 

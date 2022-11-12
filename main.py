@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, send_from_directory
 from forms import UploadForm
 from werkzeug.utils import secure_filename
-from PIL import Image
+import cv2 as cv
 import numpy as np
 from datetime import date
 import os
@@ -21,7 +21,7 @@ def rgb_to_hex(r, g, b):
 
 
 def get_colors(filename):
-    img = Image.open(f"{app.config['UPLOAD_FOLDER']}/{filename}", "r")
+    img = cv.imread(f"{app.config['UPLOAD_FOLDER']}/{filename}")
     img_array = np.array(img)
     values, counts = np.unique(img_array.reshape(-1, img_array.shape[-1]), axis=0, return_counts=True)
     top_colors_index = np.argsort(-counts)[:10]
