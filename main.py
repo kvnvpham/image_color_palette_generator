@@ -16,13 +16,12 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 
-def rgb_to_hex(r, g, b):
+def rgb_to_hex(b, g, r):
     return "#%02x%02x%02x" % (r, g, b)
 
 
 def get_colors(filename):
-    img = cv.imread(f"{app.config['UPLOAD_FOLDER']}/{filename}")
-    img_array = np.array(img)
+    img_array = cv.imread(f"{app.config['UPLOAD_FOLDER']}/{filename}")
     values, counts = np.unique(img_array.reshape(-1, img_array.shape[-1]), axis=0, return_counts=True)
     top_colors_index = np.argsort(-counts)[:10]
 
